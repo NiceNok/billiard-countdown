@@ -13,7 +13,7 @@ public class BilliardTimersMain : MonoBehaviour
     [SerializeField] private TextMeshProUGUI historyText;
 
     private const int MaxHistoryEntries = 50;
-    private const double MinResetSecondsForHistory = 5 * 60;
+    private const double MinResetSecondsForHistory = 10;
     private static BilliardTimersMain _instance;
 
     private readonly List<string> _historyEntries = new List<string>();
@@ -62,7 +62,7 @@ public class BilliardTimersMain : MonoBehaviour
         var duration = TimeSpan.FromSeconds(elapsedBeforeResetSeconds);
 
         var line =
-            $"{endTime:dd.MM.yyyy} стол №{ResolveTableTitle(timerId)} {startTime:HH:mm}-{endTime:HH:mm} ({duration.Hours}ч. {duration.Minutes}м.)";
+            $"{endTime:dd.MM.yyyy HH:mm} стол №{ResolveTableTitle(timerId)} {startTime:HH:mm}-{endTime:HH:mm} ({duration.Hours}ч. {duration.Minutes}м.)";
 
         _historyEntries.Add(line);
         KeepLastEntries();
