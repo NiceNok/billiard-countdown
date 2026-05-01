@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -99,7 +98,7 @@ public class TimerBlock : MonoBehaviour
     private void ResetTimer()
     {
         var elapsedBeforeReset = GetCurrentElapsedSeconds();
-        AppendResetLog(elapsedBeforeReset);
+        BilliardTimersMain.Instance?.RegisterReset(ResolveTimerId(), elapsedBeforeReset);
 
         _state.accumulatedSeconds = 0;
         _state.isRunning = false;
@@ -202,12 +201,5 @@ public class TimerBlock : MonoBehaviour
         }
 
         return path;
-    }
-
-    private void AppendResetLog(double elapsedBeforeReset)
-    {
-        var logPath = Path.Combine(Application.persistentDataPath, "timer_resets.log");
-        var line = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\t{ResolveTimerId()}\t{TimeSpan.FromSeconds(elapsedBeforeReset):hh\\:mm\\:ss}";
-        File.AppendAllLines(logPath, new[] { line });
     }
 }
